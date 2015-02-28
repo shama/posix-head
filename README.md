@@ -29,6 +29,7 @@ Returns a transform stream. `argv` can be:
 * `_`: An array of arguments, file inputs; such as `head one.js two.js three.js`
 * `fs`: Override the file system with a node/io compatible fs.
 * `n`: The first number lines of each input file shall be copied to standard output. Default is 10.
+* `nl`: Specify which `<newline>` character to operate with. Defaults to `\n`.
 
 # license
 (c) 2015 Kyle Robinson Young. MIT License
