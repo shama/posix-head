@@ -11,6 +11,17 @@ function assertResult(s, cb) {
   })
 }
 
+test('pipe in', function(t) {
+  t.plan(1)
+  var head = new Head({
+    fs: fs,
+  })
+  assertResult(head, function(result) {
+    t.equal(result, Array(11).join('test\n'))
+  })
+  head.end(Array(50).join('test\n'))
+})
+
 test('head single file', function(t) {
   t.plan(1)
   var head = new Head({

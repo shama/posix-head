@@ -12,6 +12,7 @@ function Head(argv) {
     n: 10,
     nl: '\n'
   }, argv)
+  this._lines = 0
   Object.defineProperty(self, 'fs', {
     get: function() { return self.params.fs || require('fs') }
   })
@@ -31,7 +32,7 @@ function Head(argv) {
           self.end()
           return
         }
-        self.write(self.params.nl + '==> ' + filename + ' <==' + self.params.nl)
+        self.write(self.params.nl + '==> ' + filename + ' <==')
         rs = self._readFile(filename)
         rs.on('end', readFiles)
       }
@@ -44,26 +45,23 @@ inherits(Head, Transform)
 Head.prototype._readFile = function(filename) {
   var self = this
   var fs = self.fs
-  var lines = 0
-  var nlrg = new RegExp(self.params.nl, 'g')
+  self._lines = 0
   var rs = fs.createReadStream(filename)
   rs.on('error', function(err) {
     self.emit('error', err)
   })
   rs.on('data', function(data) {
-    var l = data.toString().split(self.params.nl)
-    var need = self.params.n - lines
-    if (need < 1) {
-      rs.emit('end')
-      return
-    }
-    var out = l.slice(0, need).join(self.params.nl) + self.params.nl
-    self.write(out)
+    self.write(data)
   })
   return rs
 }
 
 Head.prototype._transform = function(chunk, enc, cb) {
-  this.push(chunk)
-  cb()
+  var data = chunk.toString().split(this.params.nl)
+  var need = this.params.n - this._lines
+  if (need < 1) {
+    return cb(null, null)
+  }
+  data = data.slice(0, need).join(this.params.nl) + this.params.nl
+  cb(null, data)
 }
