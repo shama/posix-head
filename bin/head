@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+process.title = 'head'
+
+var argv = require('yargs').argv
+var head = require('../index.js')(argv)
+
+process.stdin.pipe(head).pipe(process.stdout)
+head.on('end', process.stdin.end.bind(process.stdin))
