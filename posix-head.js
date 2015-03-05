@@ -59,9 +59,13 @@ Head.prototype._readFile = function(filename) {
 Head.prototype._transform = function(chunk, enc, cb) {
   var data = chunk.toString().split(this.params.nl)
   var need = this.params.n - this._lines
-  if (need < 1) {
-    return cb(null, null)
-  }
-  data = data.slice(0, need).join(this.params.nl) + this.params.nl
+  if (need < 1) return cb(null, null)
+
+  var end = data.length
+  if (end > need) end = need
+
+  this._lines += end
+  data = data.slice(0, end).join(this.params.nl) + this.params.nl
+  //console.log('after', this._lines, need)
   cb(null, data)
 }

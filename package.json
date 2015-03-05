@@ -1,5 +1,5 @@
 {
-  "name": "ix-head",
+  "name": "posix-head",
   "version": "1.0.0",
   "description": "A POSIX-like head in JavaScript",
   "main": "index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/shama/ix-head"
+    "url": "git://github.com/shama/posix-head"
   },
   "keywords": [
     "posix",
@@ -22,9 +22,9 @@
   "author": "Kyle Robinson Young <kyle@dontkry.com> (http://dontkry.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shama/ix-head/issues"
+    "url": "https://github.com/shama/posix-head/issues"
   },
-  "homepage": "https://github.com/shama/ix-head",
+  "homepage": "https://github.com/shama/posix-head",
   "dependencies": {
     "inherits": "^2.0.1",
     "next-tick": "^0.2.2",

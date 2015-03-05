@@ -17,9 +17,10 @@ test('pipe in', function(t) {
     fs: fs,
   })
   assertResult(head, function(result) {
-    t.equal(result, Array(11).join('test\n'))
+    t.equal(result, '1\n2\n3\n4\n5\n6\n7\n8\n9\n')
   })
-  head.end(Array(50).join('test\n'))
+  head.write('1\n2\n3\n4\n5\n')
+  head.end('6\n7\n8\n9\n10\n11\n12\n13\n')
 })
 
 test('head single file', function(t) {
@@ -52,6 +53,7 @@ test('head multiple files', function(t) {
     fs: fs,
   })
   assertResult(head, function(result) {
+    console.log(result)
     t.equal(result, '\n==> test/fixtures/twelve <==\none\ntwo\nthree\nfour\nfive\nsix\nseven\neight\nine\nten\n\n==> test/fixtures/four <==\none\ntwo\nthree\nfour\n\n')
   })
 })
